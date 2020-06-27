@@ -30,7 +30,6 @@ describe('CoursesService', () => {
     const req = httpTestingController.expectOne('/api/courses');
     expect(req.request.method).toEqual('GET');
     req.flush({payload: Object.values(COURSES)});
-    httpTestingController.verify();
   });
 
   it ('should find a course by id', () => {
@@ -42,6 +41,9 @@ describe('CoursesService', () => {
     const request = httpTestingController.expectOne('/api/courses/12');
     expect(request.request.method).toEqual("GET");
     request.flush(COURSES[12]);
+  });
+
+  afterEach(() => {
     httpTestingController.verify();
   });
 });
