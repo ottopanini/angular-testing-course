@@ -4,7 +4,6 @@ import {LoggerService} from './logger.service';
 describe('CalculatorService', () => {
   it('should add two members', () => {
     const logger = jasmine.createSpyObj('LoggerService', ["log"]);
-
     const calculator = new CalculatorService(logger);
     const result = calculator.add(2, 2);
 
@@ -13,9 +12,11 @@ describe('CalculatorService', () => {
   });
 
   it('should subtract two members', () => {
-    const calculator = new CalculatorService(new LoggerService());
+    const logger = jasmine.createSpyObj('LoggerService', ["log"]);
+    const calculator = new CalculatorService(logger);
     const result = calculator.subtract(2, 2);
 
     expect(result).toBe(0, "unexpected subtraction result");
+    expect(logger.log).toHaveBeenCalledTimes(1);
   });
 });
