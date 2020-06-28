@@ -56,6 +56,17 @@ describe('CoursesService', () => {
     request.flush({...COURSES[12], ...changes});
   });
 
+  it('should give an error if save course fails', () => {
+    const changes: Partial<Course> = {titles: {description: 'Testing Course'}};
+    coursesService.saveCourse(12, changes).subscribe(
+      () => fail('The save course operation should have failed'),
+        error => expect(error.status).toBe(500));
+
+    const request = httpTestingController.expectOne('/api/courses/12');
+    expect(request.request.method).toEqual("PUT");
+    request.flush('Save course failed', {status: 500, statusText: 'Internal Server Error'});
+  });
+
   afterEach(() => {
     httpTestingController.verify();
   });
