@@ -25,7 +25,8 @@ describe('CoursesService', () => {
       expect(courses).toBeTruthy('no courses returned');
       expect(courses.length).toBe(12, 'incorrect number of courses');
 
-      const course = courses.find(course => course.id === 12);
+      const course = courses.find(courseElem => courseElem.id === 12);
+      expect(course.id).toBe(12);
     });
 
     const req = httpTestingController.expectOne('/api/courses');
