@@ -5,6 +5,9 @@ import {DebugElement} from '@angular/core';
 import {HomeComponent} from './home.component';
 import {CoursesService} from '../services/courses.service';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
+import {setupCourses} from '../common/setup-test-data';
+import {By} from '@angular/platform-browser';
+import {of} from 'rxjs';
 
 
 describe('HomeComponent', () => {
@@ -12,9 +15,11 @@ describe('HomeComponent', () => {
   let fixture: ComponentFixture<HomeComponent>;
   let component: HomeComponent;
   let el: DebugElement;
+  let coursesService: any;
+  const beginnerCourses = setupCourses().filter(course => course.category === 'BEGINNER');
 
   beforeEach(async(() => {
-    const coursesServiceSpy = jasmine.createSpyObj('CoursesService', ['findAllCourses'])
+    const coursesServiceSpy = jasmine.createSpyObj('CoursesService', ['findAllCourses']);
 
     TestBed.configureTestingModule({
       imports: [CoursesModule, NoopAnimationsModule],
@@ -25,6 +30,7 @@ describe('HomeComponent', () => {
       fixture = TestBed.createComponent(HomeComponent);
       component = fixture.componentInstance;
       el = fixture.debugElement;
+      coursesService = TestBed.inject(CoursesService);
     });
 
   }));
@@ -35,9 +41,12 @@ describe('HomeComponent', () => {
 
 
   it("should display only beginner courses", () => {
+    coursesService.findAllCourses.and.returnValue(of(beginnerCourses));
 
-    pending();
+    fixture.detectChanges();
 
+    const tabs = el.queryAll(By.css(".mat-tab-label"));
+    expect(tabs.length).toBe(1, "Unexpected number of tabs found");
   });
 
 
