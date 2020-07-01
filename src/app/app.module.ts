@@ -8,12 +8,10 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {HttpClientModule} from '@angular/common/http';
 import {CoursesModule} from './courses/courses.module';
-import {PipeSeparatedListComponent} from './component/pipe-separated-list/pipe-separated-list.component';
 
 @NgModule({
     declarations: [
-      AppComponent,
-      PipeSeparatedListComponent
+      AppComponent
     ],
     imports: [
         BrowserModule,
