@@ -1,4 +1,4 @@
-import {fakeAsync, tick} from '@angular/core/testing';
+import {fakeAsync, flush} from '@angular/core/testing';
 
 describe('Async Testing Expamples', () => {
 
@@ -20,7 +20,7 @@ describe('Async Testing Expamples', () => {
       test = true;
     }, 1000);
 
-    tick(1000);
+    flush();
     expect(test).toBeTruthy();
   }));
 });
