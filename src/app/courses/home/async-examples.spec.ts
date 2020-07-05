@@ -1,8 +1,8 @@
 describe('Async Testing Expamples', () => {
 
-  it('Asynchronous test example with Jasmine done()', () => {
+  it('Asynchronous test example with Jasmine done()', (done: DoneFn) => {
     let test = false;
-    setTimeout((done: DoneFn) => {
+    setTimeout(() => {
       console.log('running assertions');
       test = true;
 
